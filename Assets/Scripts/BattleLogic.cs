@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class BattleLogic : MonoBehaviour
 {
+    public static BattleLogic Instance; //TODO: Acacbbar de completar config singleton
     private GameObject player;
     private GameObject enemy;
-
+    private CharacterSO reciever;
+    private CharacterSO attacker;
     [SerializeField] private GameObject attackPrefab;
     [SerializeField] private GameObject defensePrefab;
     [SerializeField] private GameObject objectPrefab;
@@ -18,10 +20,19 @@ public class BattleLogic : MonoBehaviour
     private GameObject objects;
 
 
-    private void SelectAction(string action)
+
+
+
+
+
+
+
+
+    /*
+    public void SelectAction(string action)
     {
         GameObject victim = player;
-        if (tag == "player") 
+        if (reciever.enemy == true) 
         {
             victim = enemy;
         }
@@ -41,5 +52,6 @@ public class BattleLogic : MonoBehaviour
         }
        
     }
+    */
 
 }

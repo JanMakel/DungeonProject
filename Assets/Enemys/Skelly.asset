@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fa8d2805648c184b804373ed466f795, type: 3}
-  m_Name: Knight
+  m_Name: Skelly
   m_EditorClassIdentifier: 
-  attack: 100
-  defense: 200
-  hp: 250
-  velocity: 25
-  dodge: 2
-  critic: 3
-  enemy: 0
-  character: {fileID: 2739483326582476653, guid: 476ec266745a9064987e8ff8616c951f, type: 3}
+  attack: 50
+  defense: 25
+  hp: 150
+  velocity: 10
+  dodge: 5
+  critic: 1
+  enemy: 1
+  character: {fileID: 3504817228773093415, guid: 6055dea0ea375b743a72cf480c27142a, type: 3}

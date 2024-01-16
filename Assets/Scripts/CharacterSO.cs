@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Character/Heroe")]
-public class HeroesSO : ScriptableObject
+[CreateAssetMenu(menuName = "Character/character")]
+public class CharacterSO : ScriptableObject
 {
     public int attack;
     public int defense;
@@ -12,6 +12,7 @@ public class HeroesSO : ScriptableObject
     public int velocity;
     public int dodge;
     public int critic;
-    public Sprite sprite;
+    public bool enemy;
+    public GameObject character;
 
 }

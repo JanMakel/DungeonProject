@@ -11,11 +11,19 @@ public class BattleComands : MonoBehaviour
     [SerializeField] private Button defenseBtn;
     [SerializeField] private Button objectBtn;
 
+    
+
+
+    private void Start()
+    {
+        
+    }
 
     private void Awake()
     {
         attackBtn.onClick.AddListener(() =>
         {
+
             Debug.Log("Attack");
         });
         defenseBtn.onClick.AddListener(() =>

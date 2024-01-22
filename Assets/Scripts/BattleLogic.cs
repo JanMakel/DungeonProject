@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BattleLogic : MonoBehaviour
 {
-    public static BattleLogic Instance; //TODO: Acacbbar de completar config singleton
-    private GameObject player;
-    private GameObject enemy;
-    private CharacterSO reciever;
-    private CharacterSO attacker;
+    public static BattleLogic Instance; //TO DO: Acacbbar de completar config singleton
+    [SerializeField]private GameObject player;
+    [SerializeField]private GameObject enemy;
+  
     [SerializeField] private GameObject attackPrefab;
     [SerializeField] private GameObject defensePrefab;
     [SerializeField] private GameObject objectPrefab;
@@ -19,10 +19,29 @@ public class BattleLogic : MonoBehaviour
     private GameObject defense;
     private GameObject objects;
 
+    private AttackScript attackScript;
 
+    private void Start()
+    {
+        
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            attackScript.Attack(enemy);
+        }
 
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Debug.Log("Player Defense");
+        }
 
-
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Debug.Log("Player Using Object");
+        }
+    }
 
 
 

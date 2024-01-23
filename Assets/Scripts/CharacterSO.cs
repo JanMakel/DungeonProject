@@ -14,5 +14,6 @@ public class CharacterSO : ScriptableObject
     public int critic;
     public bool enemy;
     public GameObject character;
+    public string characterName;
 
 }

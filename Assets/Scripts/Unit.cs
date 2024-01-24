@@ -16,4 +16,17 @@ public class Unit : MonoBehaviour
     public int unitVelocity;
     public int unitDodge;
     public int unitCrit;
+
+
+    public bool TakeDamage(int damage)
+    {
+        unitCurrentHp -= damage;
+
+        if(unitCurrentHp <= 0)
+        {
+            return true;
+        }
+        else { return false; }
+
+    }
 }

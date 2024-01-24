@@ -51,11 +51,67 @@ public class BattleSystem : MonoBehaviour
         
     }
 
+    IEnumerator PlayerAttack()
+    {
+        bool isDead = enemyUnit.TakeDamage(playerUnit.unitDamage);
 
+        enemyHUD.SetHp(enemyUnit.unitCurrentHp);
+
+        if (isDead)
+        {
+            state = BattleState.WIN;
+            EndBattle();
+        }
+        else
+        {
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+        yield return new WaitForSeconds(3f);
+    }
+
+    IEnumerator EnemyTurn()
+    {
+        bool isDead = playerUnit.TakeDamage(enemyUnit.unitDamage);
+
+        playerHUD.SetHp(playerUnit.unitCurrentHp);
+
+        yield return new WaitForSeconds(2f);
+
+        if(isDead)
+        {
+            state = BattleState.LOST;
+            EndBattle();
+        }
+        else 
+        {
+            state = BattleState.PLAYERTURN;
+            
+        }
+
+        yield return new WaitForSeconds(2f);
+    }
+
+    private void EndBattle()
+    {
+        if(state == BattleState.WIN)
+        {
+            //Funcion de regreso al mapa
+        }
+        else if (state == BattleState.LOST)
+        {
+            //Funcion de Game Over
+        }
+    }
 
     public void onAttackButton()
     {
-        
+        if(state != BattleState.PLAYERTURN)
+        {
+            return;
+        }
+
+        StartCoroutine(PlayerAttack());
     }
 
 }

@@ -21,6 +21,6 @@ public class BattleHUD : MonoBehaviour
 
     public void SetHp(int hp)
     {
-        healthPoints.text += hp;
+        healthPoints.text = hp.ToString();
     }
 }

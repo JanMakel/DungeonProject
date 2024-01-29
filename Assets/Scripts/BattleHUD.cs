@@ -13,6 +13,7 @@ public class BattleHUD : MonoBehaviour
 
     public void SetHUD(Unit unit)
     {
+        
         nameText.text = unit.unitName;
         levelText.text = "Lvl:" + unit.unitLevel;
         healthPoints.text = "HP:" + unit.unitMaxHp;
@@ -21,6 +22,6 @@ public class BattleHUD : MonoBehaviour
 
     public void SetHp(int hp)
     {
-        healthPoints.text = hp.ToString();
+        healthPoints.text = "HP: " + hp.ToString();
     }
 }

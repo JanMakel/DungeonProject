@@ -47,10 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Skeleton
   unitLevel: 1
-  unitDamage: 5
+  unitDamage: 40
   unitMaxHp: 100
   unitCurrentHp: 0
-  unitDefense: 5
+  unitDefense: 10
   unitVelocity: 10
   unitDodge: 1
   unitCrit: 10

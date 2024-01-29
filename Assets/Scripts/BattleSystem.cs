@@ -11,6 +11,7 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
+    
 
     public BattleState state;
     [SerializeField] private GameObject player;
@@ -21,10 +22,22 @@ public class BattleSystem : MonoBehaviour
 
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
-    
+    public TextMeshProUGUI battleText;
 
     private Unit playerUnit;
     private Unit enemyUnit;
+
+
+    private bool inDefense = false;
+    private int dodged;
+    private int crit;
+    private bool criticalHit = false;
+    private int playerSpeed = 0;
+    private int enemySpeed = 0;
+
+    
+
+
 
     private void Start()
     {
@@ -42,54 +55,184 @@ public class BattleSystem : MonoBehaviour
         GameObject enemyGameObject = Instantiate(enemy, enemyStation);
         enemyUnit = enemyGameObject.GetComponent<Unit>();
 
+        playerUnit.unitCurrentHp = playerUnit.unitMaxHp;
+        enemyUnit.unitCurrentHp = enemyUnit.unitMaxHp;
+
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
+
+        battleText.text = "A wild  " + enemyUnit.unitName + "  approaches";
 
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYERTURN;
-        
+        PlayerTurn();
     }
 
     IEnumerator PlayerAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.unitDamage);
-
-        enemyHUD.SetHp(enemyUnit.unitCurrentHp);
-
-        if (isDead)
+        dodged = Random.Range(0, 100);
+        if(dodged <= enemyUnit.unitDodge) 
         {
-            state = BattleState.WIN;
-            EndBattle();
-        }
-        else
-        {
+            battleText.text = enemyUnit.unitName + " evades the attack!";
+
+            yield return new WaitForSeconds(2f);
+
+            battleText.text = "Now is " + enemyUnit.unitName + " turn";
+
+            yield return new WaitForSeconds(2f);
+
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
         }
-        yield return new WaitForSeconds(3f);
+        else
+        {
+            crit = Random.Range(0, 100);
+            
+            if(crit <= playerUnit.unitCrit)
+            {
+                playerUnit.unitDamage = playerUnit.unitDamage * 2;
+                criticalHit = true;
+            }
+
+
+
+
+            bool isDead = enemyUnit.TakeDamage(playerUnit.unitDamage);
+
+            enemyHUD.SetHp(enemyUnit.unitCurrentHp);
+
+
+            if(criticalHit)
+            {
+                battleText.text = "A CRITCAL HIT";
+            }
+            else
+            {
+                battleText.text = "It hits!";
+            }
+           
+            yield return new WaitForSeconds(2f);
+
+            if (isDead)
+            {
+                state = BattleState.WIN;
+                battleText.text = "You won!!";
+                EndBattle();
+            }
+            else
+            {
+
+                battleText.text = "Now is " + enemyUnit.unitName + " turn";
+                yield return new WaitForSeconds(2f);
+
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn());
+
+            }
+        }
+      
+        
     }
 
-    IEnumerator EnemyTurn()
+    IEnumerator PlayerDefense()
     {
-        bool isDead = playerUnit.TakeDamage(enemyUnit.unitDamage);
-
-        playerHUD.SetHp(playerUnit.unitCurrentHp);
-
+        inDefense = true;
+        playerUnit.unitDefense = playerUnit.unitDefense * 2;
+        battleText.text = "Defending!";
         yield return new WaitForSeconds(2f);
 
-        if(isDead)
-        {
-            state = BattleState.LOST;
-            EndBattle();
-        }
-        else 
+        battleText.text = "Now is " + enemyUnit.unitName + " turn";
+        yield return new WaitForSeconds(2f);
+
+        state = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
+    }
+
+
+    private void WhoIsTurn()
+    {
+        playerSpeed = playerSpeed += playerUnit.unitVelocity;
+        enemySpeed = enemySpeed += enemyUnit.unitVelocity;
+
+        if(playerSpeed >= enemySpeed)
         {
             state = BattleState.PLAYERTURN;
-            
+            PlayerTurn(); 
         }
+    }
 
-        yield return new WaitForSeconds(2f);
+
+
+
+
+
+
+
+    private void PlayerTurn()
+    {
+        if (inDefense)
+        {
+            playerUnit.unitDefense = playerUnit.unitDefense / 2;
+            inDefense = false;
+        }
+        if (criticalHit)
+        {
+            playerUnit.unitDamage = playerUnit.unitDamage / 2;
+            criticalHit = false;
+        }
+        battleText.text = "What will you do?...";
+    }
+    IEnumerator EnemyTurn()
+    {
+
+        dodged = Random.Range(0, 100);
+        if (dodged <= playerUnit.unitDodge)
+        {
+            battleText.text = playerUnit.unitName + " evades the attack!";
+
+            yield return new WaitForSeconds(2f);
+
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+        else
+        {
+            crit = Random.Range(0, 100);
+            if (crit <= enemyUnit.unitCrit)
+            {
+                playerUnit.unitDamage = enemyUnit.unitDamage * 2;
+                criticalHit = true;
+            }
+
+            bool isDead = playerUnit.TakeDamage(enemyUnit.unitDamage);
+
+            playerHUD.SetHp(playerUnit.unitCurrentHp);
+
+            battleText.text = "That's going to hurt";
+
+            if(criticalHit)
+            {
+                enemyUnit.unitDamage = enemyUnit.unitDamage / 2;
+                criticalHit = false;
+            }
+            yield return new WaitForSeconds(2f);
+
+            if (isDead)
+            {
+                state = BattleState.LOST;
+                battleText.text = "You lost...";
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            }
+
+            yield return new WaitForSeconds(2f);
+        }
+       
     }
 
     private void EndBattle()
@@ -112,6 +255,16 @@ public class BattleSystem : MonoBehaviour
         }
 
         StartCoroutine(PlayerAttack());
+    }
+
+    public void onDefenseButton()
+    {
+        if(state != BattleState.PLAYERTURN)
+        {
+            return;
+        }
+
+        StartCoroutine(PlayerDefense());
     }
 
 }

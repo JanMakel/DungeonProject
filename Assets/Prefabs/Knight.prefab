@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: knight
   unitLevel: 1
-  unitDamage: 5
+  unitDamage: 40
   unitMaxHp: 250
   unitCurrentHp: 0
   unitDefense: 20

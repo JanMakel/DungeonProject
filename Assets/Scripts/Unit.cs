@@ -20,6 +20,8 @@ public class Unit : MonoBehaviour
 
     public bool TakeDamage(int damage)
     {
+
+        damage = damage -= unitDefense;
         unitCurrentHp -= damage;
 
         if(unitCurrentHp <= 0)

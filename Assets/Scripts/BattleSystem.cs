@@ -35,12 +35,13 @@ public class BattleSystem : MonoBehaviour
     private int playerSpeed = 0;
     private int enemySpeed = 0;
 
-    
+    private Animator animator;
 
 
 
     private void Start()
     {
+        //animator = playerUnit.GetComponent<Animator>();
         state = BattleState.START;
 
         StartCoroutine(SetupBattle());
@@ -58,6 +59,9 @@ public class BattleSystem : MonoBehaviour
         playerUnit.unitCurrentHp = playerUnit.unitMaxHp;
         enemyUnit.unitCurrentHp = enemyUnit.unitMaxHp;
 
+        playerSpeed = 0;
+        enemySpeed = 0;
+
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
 
@@ -65,12 +69,14 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        state = BattleState.PLAYERTURN;
-        PlayerTurn();
+        WhoIsTurn();
     }
 
     IEnumerator PlayerAttack()
     {
+
+        //animator.SetTrigger("Attack");
+
         dodged = Random.Range(0, 100);
         if(dodged <= enemyUnit.unitDodge) 
         {
@@ -82,8 +88,8 @@ public class BattleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
+            WhoIsTurn();
+
         }
         else
         {
@@ -121,14 +127,8 @@ public class BattleSystem : MonoBehaviour
                 EndBattle();
             }
             else
-            {
-
-                battleText.text = "Now is " + enemyUnit.unitName + " turn";
-                yield return new WaitForSeconds(2f);
-
-                state = BattleState.ENEMYTURN;
-                StartCoroutine(EnemyTurn());
-
+            {              
+                WhoIsTurn();
             }
         }
       
@@ -142,11 +142,8 @@ public class BattleSystem : MonoBehaviour
         battleText.text = "Defending!";
         yield return new WaitForSeconds(2f);
 
-        battleText.text = "Now is " + enemyUnit.unitName + " turn";
-        yield return new WaitForSeconds(2f);
-
-        state = BattleState.ENEMYTURN;
-        StartCoroutine(EnemyTurn());
+        
+        WhoIsTurn();
     }
 
 
@@ -157,17 +154,19 @@ public class BattleSystem : MonoBehaviour
 
         if(playerSpeed >= enemySpeed)
         {
+            playerSpeed = 0;
             state = BattleState.PLAYERTURN;
-            PlayerTurn(); 
+            PlayerTurn();
+            
+        }
+        else
+        {
+            enemySpeed = 0;
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+
         }
     }
-
-
-
-
-
-
-
 
     private void PlayerTurn()
     {
@@ -185,6 +184,9 @@ public class BattleSystem : MonoBehaviour
     }
     IEnumerator EnemyTurn()
     {
+        battleText.text = "Now is " + enemyUnit.unitName + " turn";
+
+        yield return new WaitForSeconds(2f);
 
         dodged = Random.Range(0, 100);
         if (dodged <= playerUnit.unitDodge)
@@ -193,8 +195,7 @@ public class BattleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            state = BattleState.PLAYERTURN;
-            PlayerTurn();
+           WhoIsTurn();
         }
         else
         {
@@ -205,13 +206,24 @@ public class BattleSystem : MonoBehaviour
                 criticalHit = true;
             }
 
+
+           
+
             bool isDead = playerUnit.TakeDamage(enemyUnit.unitDamage);
 
             playerHUD.SetHp(playerUnit.unitCurrentHp);
 
-            battleText.text = "That's going to hurt";
+            if (criticalHit)
+            {
+                battleText.text = "A CRITCAL HIT";
+            }
+            else
+            {
+                battleText.text = "That's going to hurt"; ;
+            }
 
-            if(criticalHit)
+
+            if (criticalHit)
             {
                 enemyUnit.unitDamage = enemyUnit.unitDamage / 2;
                 criticalHit = false;
@@ -226,8 +238,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                state = BattleState.PLAYERTURN;
-                PlayerTurn();
+                WhoIsTurn();
             }
 
             yield return new WaitForSeconds(2f);

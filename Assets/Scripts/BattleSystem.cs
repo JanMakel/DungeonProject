@@ -41,7 +41,8 @@ public class BattleSystem : MonoBehaviour
 
     private void Start()
     {
-        //animator = playerUnit.GetComponent<Animator>();
+
+       
         state = BattleState.START;
 
         StartCoroutine(SetupBattle());
@@ -52,6 +53,8 @@ public class BattleSystem : MonoBehaviour
     {
         GameObject playerGameObject = Instantiate(player, playerStation);
         playerUnit = playerGameObject.GetComponent<Unit>();
+        animator = playerGameObject.GetComponent<Animator>();
+
 
         GameObject enemyGameObject = Instantiate(enemy, enemyStation);
         enemyUnit = enemyGameObject.GetComponent<Unit>();
@@ -74,9 +77,9 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-
-        //animator.SetTrigger("Attack");
-
+        
+        animator.SetTrigger("Attack");
+        
         dodged = Random.Range(0, 100);
         if(dodged <= enemyUnit.unitDodge) 
         {
@@ -117,7 +120,13 @@ public class BattleSystem : MonoBehaviour
             {
                 battleText.text = "It hits!";
             }
-           
+
+            if (criticalHit)
+            {
+                playerUnit.unitDamage = playerUnit.unitDamage / 2;
+                criticalHit = false;
+            }
+
             yield return new WaitForSeconds(2f);
 
             if (isDead)

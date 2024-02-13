@@ -12,10 +12,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private bool walking = false;
 
-    
+    public static bool playerCreated;
+
+    public string netxUuid;
+
     void Start()
     {
        _rigidbody = GetComponent<Rigidbody2D>();
+      playerCreated = true;
     }
 
     
@@ -27,24 +31,7 @@ public class PlayerController : MonoBehaviour
         float verticalInput = Input.GetAxisRaw("Vertical");
         Vector2 inputVector = Vector2.zero;
 
-        if (Mathf.Abs(horziontalInput) > 0.2f)
-        {
-            //Vector3 tranlation = new Vector3(Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime, 0, 0);
-            //this.transform.Translate(tranlation);
-            //_rigidbody.velocity = new Vector2(horziontalInput, _rigidbody.velocity.y);
-
-            //this.walking = true;
-        }
        
-
-        if(Mathf.Abs(verticalInput) > 0.2f)
-        {
-            //Vector3 translation = new Vector3(0, Input.GetAxisRaw("Vertical") * speed * Time.deltaTime, 0);
-            //this.transform.Translate(translation);
-            //_rigidbody.velocity = new Vector2(_rigidbody.velocity.x,verticalInput);
-            
-            //this.walking = true;
-        }
         if(Mathf.Abs(horziontalInput) > 0.2f || Mathf.Abs(verticalInput) > 0.2f)
         {
             inputVector = new Vector2(horziontalInput, verticalInput).normalized;

@@ -175,9 +175,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4832715688763957268, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: uuid
+      value: Battle 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880098165615395167, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880098165615395167, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 879808337
+      objectReference: {fileID: 0}
     - target: {fileID: 5884553534204555476, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
       propertyPath: m_Name
       value: Skeleton_map (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5884553534204555476, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_TagString
+      value: Battle1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -255,8 +271,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 773865101
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -6935,8 +6951,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1576629911
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -7160,8 +7176,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1810270521
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -10109,9 +10125,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4832715688763957268, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: uuid
+      value: Battle 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880098165615395167, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880098165615395167, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 879808337
+      objectReference: {fileID: 0}
     - target: {fileID: 5884553534204555476, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
       propertyPath: m_Name
       value: Skeleton_map (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5884553534204555476, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_TagString
+      value: Battle1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10170,9 +10202,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4832715688763957268, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: uuid
+      value: Battle 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880098165615395167, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880098165615395167, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 879808337
+      objectReference: {fileID: 0}
     - target: {fileID: 5884553534204555476, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
       propertyPath: m_Name
       value: Skeleton_map (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5884553534204555476, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_TagString
+      value: Battle1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10209,6 +10257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
+  amount: 0
 --- !u!4 &857577387
 Transform:
   m_ObjectHideFlags: 0
@@ -10385,9 +10434,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4832715688763957268, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: uuid
+      value: Battle 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880098165615395167, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880098165615395167, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 879808337
+      objectReference: {fileID: 0}
     - target: {fileID: 5884553534204555476, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
       propertyPath: m_Name
       value: Skeleton_map
+      objectReference: {fileID: 0}
+    - target: {fileID: 5884553534204555476, guid: e52cf6b7089611c4b9e9c368b45b4b5d, type: 3}
+      propertyPath: m_TagString
+      value: Battle1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10522,6 +10587,14 @@ PrefabInstance:
     - target: {fileID: 7902745409305867373, guid: f52b3740c511ffe43ac46dbb24ef9d1c, type: 3}
       propertyPath: m_FlipX
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7902745409305867373, guid: f52b3740c511ffe43ac46dbb24ef9d1c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7902745409305867373, guid: f52b3740c511ffe43ac46dbb24ef9d1c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 879808337
       objectReference: {fileID: 0}
     - target: {fileID: 8884168170270750711, guid: f52b3740c511ffe43ac46dbb24ef9d1c, type: 3}
       propertyPath: m_Size.x

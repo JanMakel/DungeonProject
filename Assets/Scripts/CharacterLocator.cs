@@ -24,9 +24,5 @@ public class CharacterLocator : MonoBehaviour
         camera.transform.position = new Vector3(transform.position.x, transform.position.y, camera.transform.position.z);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

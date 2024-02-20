@@ -37,7 +37,7 @@ public class BattleSystem : MonoBehaviour
 
     private Animator animator;
 
-
+    public ReturnFromBattle battleReturn;
 
     private void Start()
     {
@@ -55,6 +55,7 @@ public class BattleSystem : MonoBehaviour
         playerUnit = playerGameObject.GetComponent<Unit>();
         animator = playerGameObject.GetComponent<Animator>();
 
+        battleReturn = playerGameObject.GetComponent<ReturnFromBattle>();
 
         GameObject enemyGameObject = Instantiate(enemy, enemyStation);
         enemyUnit = enemyGameObject.GetComponent<Unit>();
@@ -225,6 +226,8 @@ public class BattleSystem : MonoBehaviour
             if (criticalHit)
             {
                 battleText.text = "A CRITCAL HIT";
+                enemyUnit.unitDamage = enemyUnit.unitDamage / 2;
+                criticalHit = false;
             }
             else
             {
@@ -232,11 +235,7 @@ public class BattleSystem : MonoBehaviour
             }
 
 
-            if (criticalHit)
-            {
-                enemyUnit.unitDamage = enemyUnit.unitDamage / 2;
-                criticalHit = false;
-            }
+           
             yield return new WaitForSeconds(2f);
 
             if (isDead)
@@ -259,7 +258,7 @@ public class BattleSystem : MonoBehaviour
     {
         if(state == BattleState.WIN)
         {
-            //Funcion de regreso al mapa
+            battleReturn.Win();
         }
         else if (state == BattleState.LOST)
         {

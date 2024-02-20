@@ -17,6 +17,7 @@ public class Unit : MonoBehaviour
     public int unitDodge;
     public int unitCrit;
 
+    
 
     public bool TakeDamage(int damage)
     {

@@ -12,11 +12,11 @@ public class GoToBattle : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !isBattle)
         {
-            FindObjectOfType<PlayerController>().netxUuid = uuid;
+            
             isBattle = true;
-            SceneManager.LoadScene(battleScene);
+            SceneManager.LoadScene(battleScene, LoadSceneMode.Additive);
         }
     }
 }

@@ -1730,7 +1730,7 @@ GameObject:
   - component: {fileID: 1357080034}
   - component: {fileID: 1357080035}
   m_Layer: 0
-  m_Name: Manager
+  m_Name: Battle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1765,7 +1765,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   player: {fileID: 3938031643723196218, guid: 44a7bab8f25e2cf4fb8a81e98542789c, type: 3}
-  enemy: {fileID: 1441901238883433734, guid: 57e7d32cfad480a4c8b38717c5efa777, type: 3}
+  enemy:
+  - {fileID: 5165443145546269836, guid: 6ff4fe61915275b4985f0122cc60ebb1, type: 3}
+  - {fileID: 1441901238883433734, guid: 57e7d32cfad480a4c8b38717c5efa777, type: 3}
+  - {fileID: 2260390946234573430, guid: 10a5e5a7454c7f4478a1069a028ddbe3, type: 3}
+  - {fileID: 4048232777437742525, guid: a16a550ddb34b5940b8cfa4420ba6dee, type: 3}
+  - {fileID: 8916970301556739985, guid: a57d06f70688cdb419c053d29a5fed40, type: 3}
+  - {fileID: 6451755916782210815, guid: 760600aad4fdbf54daa9991d27f2d806, type: 3}
   playerStation: {fileID: 1084435154}
   enemyStation: {fileID: 2053007275}
   playerHUD: {fileID: 1724958605}

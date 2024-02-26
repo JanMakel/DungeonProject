@@ -15,7 +15,7 @@ public class BattleSystem : MonoBehaviour
 
     public BattleState state;
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject[] enemy;
 
     [SerializeField] private Transform playerStation;
     [SerializeField] private Transform enemyStation;
@@ -34,21 +34,23 @@ public class BattleSystem : MonoBehaviour
     private bool criticalHit = false;
     private int playerSpeed = 0;
     private int enemySpeed = 0;
+    private string playerHpKey = "PlayerHP";
 
     private Animator animator;
 
     public ReturnFromBattle battleReturn;
+    private InventoryManager inventory;
+
 
     private void Start()
     {
 
-       
         state = BattleState.START;
 
         StartCoroutine(SetupBattle());
     }
 
-
+    
     private IEnumerator SetupBattle()
     {
         GameObject playerGameObject = Instantiate(player, playerStation);
@@ -56,11 +58,22 @@ public class BattleSystem : MonoBehaviour
         animator = playerGameObject.GetComponent<Animator>();
 
         battleReturn = playerGameObject.GetComponent<ReturnFromBattle>();
+        inventory = FindObjectOfType<InventoryManager>();
+        if (inventory == null)
+        {
+            Debug.LogError("InventoryManager not found in the scene!");
+        }
 
-        GameObject enemyGameObject = Instantiate(enemy, enemyStation);
+        GameObject enemyGameObject = Instantiate(enemy[PlayerPrefs.GetInt("EnemySelected", -1)], enemyStation);
         enemyUnit = enemyGameObject.GetComponent<Unit>();
-
-        playerUnit.unitCurrentHp = playerUnit.unitMaxHp;
+        if(PlayerPrefs.HasKey(playerHpKey))
+        {
+            playerUnit.unitCurrentHp = PlayerPrefs.GetInt(playerHpKey, playerUnit.unitCurrentHp);
+        }
+        else
+        {
+            playerUnit.unitCurrentHp = playerUnit.unitMaxHp;
+        }
         enemyUnit.unitCurrentHp = enemyUnit.unitMaxHp;
 
         playerSpeed = 0;
@@ -75,6 +88,9 @@ public class BattleSystem : MonoBehaviour
 
         WhoIsTurn();
     }
+
+   
+
 
     IEnumerator PlayerAttack()
     {
@@ -156,6 +172,23 @@ public class BattleSystem : MonoBehaviour
         WhoIsTurn();
     }
 
+    /*
+    IEnumerator PlayeHeal()
+    {
+        if(inventory != null && inventory.HasItem(InteractableType.Potion))
+        {
+            battleText.text = "Healing"; 
+            yield return new WaitForSeconds(2f);
+        }
+        else
+        {
+            battleText.text = "You don't have potions";
+            yield return new WaitForSeconds(2f);
+            battleText.text = "What will you do?";
+        }
+        yield return new WaitForSeconds(2f);
+    }
+    */
 
     private void WhoIsTurn()
     {
@@ -212,7 +245,7 @@ public class BattleSystem : MonoBehaviour
             crit = Random.Range(0, 100);
             if (crit <= enemyUnit.unitCrit)
             {
-                playerUnit.unitDamage = enemyUnit.unitDamage * 2;
+                enemyUnit.unitDamage = enemyUnit.unitDamage * 2;
                 criticalHit = true;
             }
 
@@ -258,6 +291,8 @@ public class BattleSystem : MonoBehaviour
     {
         if(state == BattleState.WIN)
         {
+            PlayerPrefs.SetInt(playerHpKey, playerUnit.unitCurrentHp);
+            PlayerPrefs.Save();
             battleReturn.Win();
         }
         else if (state == BattleState.LOST)
@@ -286,4 +321,11 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(PlayerDefense());
     }
 
+    public void onObjectButton()
+    {
+        if(state != BattleState.PLAYERTURN)
+        {
+            return;
+        }
+    }
 }

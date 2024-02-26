@@ -7,15 +7,21 @@ using UnityEngine.SceneManagement;
 public class ReturnFromBattle : MonoBehaviour
 {
 
- 
+    
 
     private string Battle_Scene = "Battle_Scene";
-    
+
+   
+
+
    
     public void Win()
     {
-        Destroy(GameObject.FindWithTag("Battle1"));
-        
         SceneManager.UnloadScene(Battle_Scene);
+    }
+
+    public void Lose()
+    {
+        //SceneManager.LoadScene(GameOver);
     }
 }

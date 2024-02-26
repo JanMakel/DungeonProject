@@ -15,17 +15,14 @@ public class PlayerController : MonoBehaviour
     public static bool playerCreated;
 
 
-    private Inventory inventory;
+    
 
-
+    public int hpLeft;
 
     public string netxUuid;
 
 
-    private void Awake()
-    {
-        inventory = new Inventory();
-    }
+   
     void Start()
     {
        _rigidbody = GetComponent<Rigidbody2D>();

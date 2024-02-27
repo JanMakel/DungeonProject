@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
-     public enum InteractableType { Key, Coin, Chest, Potion}
+     public enum InteractableType { Key, Coin, Potion}
 
     [SerializeField] private InteractableType type;
 
@@ -14,48 +14,29 @@ public class InteractableObject : MonoBehaviour
     public InteractableType Type { get { return type; } }
 
 
-    private bool canInteract = false;
+    
 
     public int Amount { get { return amount; } }
 
-    private InventoryManager inventory;
+    
 
     [SerializeField] private InteractableType chestContent;
     public int chestAmount;
 
 
-    private void Start()
-    {
-        inventory = FindObjectOfType<InventoryManager>();
-        if (inventory == null)
-        {
-            Debug.LogError("InventoryManager not found in the scene!");
-        }
-    }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.CompareTag("Player") && type == InteractableType.Chest)
-        {
-            canInteract = true;
-            if(Input.GetKeyDown(KeyCode.E) && inventory != null && inventory.HasItem(InteractableType.Key)) 
-            {
-                inventory.AddItem(chestContent, chestAmount);
-                inventory.RemoveItem(InteractableType.Key, 1);
-            }
-            else
-            {
-                Debug.Log("You need a key to open this chest");
-            }
-        }
-        if (collision.CompareTag("Player") && !canInteract)
+        
+        if (collision.CompareTag("Player"))
         {
             // Get the InventoryManager component
-            InventoryManager inventoryManager = collision.GetComponent<InventoryManager>();
-            if (inventoryManager != null)
+            
+            if (InventoryManager.Instance != null)
             {
                 // Add the item to the inventory
-                inventoryManager.AddItem(type, amount);
+                InventoryManager.Instance.AddItem(type, amount);
                 // Destroy the object
                 Destroy(gameObject);
             }
@@ -63,13 +44,7 @@ public class InteractableObject : MonoBehaviour
 
         
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            canInteract = false;
-        }
-    }
+  
 
     }
    

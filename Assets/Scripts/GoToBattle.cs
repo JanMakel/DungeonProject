@@ -14,7 +14,7 @@ public class GoToBattle : MonoBehaviour
 
     //public string uuid;
 
-    public int enemyNum;
+    
 
     
 
@@ -22,10 +22,10 @@ public class GoToBattle : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && !isBattle)
         {
-            GetEnemy();
-            EnemySelected();
             
-            PlayerPrefs.SetInt("EnemySelected", enemyNum);
+            
+            
+            PlayerPrefs.SetInt("EnemySelected", GetEnemyInt());
            
             isBattle = true;
 
@@ -36,43 +36,14 @@ public class GoToBattle : MonoBehaviour
 
         }
     }
+    
 
-
-    public EnemyType GetEnemy()
+    public int GetEnemyInt()
     {
-        return enemyType;
+        return (int)enemyType;
     }
 
-    public int EnemySelected()
-    {
-        if (enemyType == EnemyType.LongSword)
-        {
-            return enemyNum = 0;
-        }
-        if(enemyType == EnemyType.Shield)
-        {
-            return enemyNum = 1;
-        }
-        if(enemyType == EnemyType.Shadow)
-        {
-            return enemyNum = 2;
-        }
-        if(enemyType == EnemyType.Spear)
-        {
-            return enemyNum = 3;
-        }
-        if(enemyType == EnemyType.Archer)
-        {
-            return enemyNum = 4;
-        }
-        if(enemyType == EnemyType.DarkKnight)
-        {
-            return enemyNum = 5;
-        }
-
-        return enemyNum;
-
-    }
+   
     public void ResetIsBattle()
     {
         isBattle = false;

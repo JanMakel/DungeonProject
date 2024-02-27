@@ -24,7 +24,7 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD enemyHUD;
     public TextMeshProUGUI battleText;
 
-    private Unit playerUnit;
+    public Unit playerUnit;
     private Unit enemyUnit;
 
 
@@ -34,14 +34,19 @@ public class BattleSystem : MonoBehaviour
     private bool criticalHit = false;
     private int playerSpeed = 0;
     private int enemySpeed = 0;
-    private string playerHpKey = "PlayerHP";
+    private string playerCurrentHpKey = "PlayerHP";
+    private string playerMaxHpkey = "PlayerMaxHP";
+
+
+
 
     private Animator animator;
 
     public ReturnFromBattle battleReturn;
-    private InventoryManager inventory;
 
+  
 
+    
     private void Start()
     {
 
@@ -58,21 +63,29 @@ public class BattleSystem : MonoBehaviour
         animator = playerGameObject.GetComponent<Animator>();
 
         battleReturn = playerGameObject.GetComponent<ReturnFromBattle>();
-        inventory = FindObjectOfType<InventoryManager>();
-        if (inventory == null)
-        {
-            Debug.LogError("InventoryManager not found in the scene!");
-        }
+      
 
         GameObject enemyGameObject = Instantiate(enemy[PlayerPrefs.GetInt("EnemySelected", -1)], enemyStation);
         enemyUnit = enemyGameObject.GetComponent<Unit>();
-        if(PlayerPrefs.HasKey(playerHpKey))
+        if(!PlayerPrefs.HasKey(playerMaxHpkey))
         {
-            playerUnit.unitCurrentHp = PlayerPrefs.GetInt(playerHpKey, playerUnit.unitCurrentHp);
+            playerUnit.unitCurrentHp = playerUnit.unitMaxHp;
+            PlayerPrefs.SetInt(playerMaxHpkey, playerUnit.unitMaxHp);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            playerUnit.unitMaxHp = PlayerPrefs.GetInt(playerMaxHpkey);
+        }
+        if(PlayerPrefs.HasKey(playerCurrentHpKey))
+        {
+            playerUnit.unitCurrentHp = PlayerPrefs.GetInt(playerCurrentHpKey);
         }
         else
         {
             playerUnit.unitCurrentHp = playerUnit.unitMaxHp;
+            PlayerPrefs.SetInt(playerCurrentHpKey, playerUnit.unitCurrentHp);
+            PlayerPrefs.Save();
         }
         enemyUnit.unitCurrentHp = enemyUnit.unitMaxHp;
 
@@ -172,13 +185,17 @@ public class BattleSystem : MonoBehaviour
         WhoIsTurn();
     }
 
-    /*
-    IEnumerator PlayeHeal()
+    
+    IEnumerator PlayerHeal()
     {
-        if(inventory != null && inventory.HasItem(InteractableType.Potion))
+        if (InventoryManager.Instance != null && InventoryManager.Instance.HasItem(InteractableObject.InteractableType.Potion))
         {
-            battleText.text = "Healing"; 
+            battleText.text = "Healing";
+            InventoryManager.Instance.RemoveItem(InteractableObject.InteractableType.Potion, 1);
+            playerUnit.unitCurrentHp += 100;
+            playerHUD.SetHp(playerUnit.unitCurrentHp);
             yield return new WaitForSeconds(2f);
+            WhoIsTurn();
         }
         else
         {
@@ -186,9 +203,9 @@ public class BattleSystem : MonoBehaviour
             yield return new WaitForSeconds(2f);
             battleText.text = "What will you do?";
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
     }
-    */
+    
 
     private void WhoIsTurn()
     {
@@ -291,8 +308,9 @@ public class BattleSystem : MonoBehaviour
     {
         if(state == BattleState.WIN)
         {
-            PlayerPrefs.SetInt(playerHpKey, playerUnit.unitCurrentHp);
+            PlayerPrefs.SetInt(playerCurrentHpKey, playerUnit.unitCurrentHp);
             PlayerPrefs.Save();
+            Debug.Log("Save" + playerUnit.unitCurrentHp);
             battleReturn.Win();
         }
         else if (state == BattleState.LOST)
@@ -327,5 +345,7 @@ public class BattleSystem : MonoBehaviour
         {
             return;
         }
+
+        StartCoroutine(PlayerHeal());
     }
 }

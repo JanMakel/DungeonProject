@@ -5,6 +5,7 @@ public class InventoryManager : MonoBehaviour
 {
     private Dictionary<InteractableObject.InteractableType, int> inventory = new Dictionary<InteractableObject.InteractableType, int>();
 
+    public static InventoryManager Instance;
     public void AddItem(InteractableObject.InteractableType type, int amount)
     {
         if (inventory.ContainsKey(type))
@@ -39,5 +40,16 @@ public class InventoryManager : MonoBehaviour
     public int GetItemCount(InteractableObject.InteractableType type)
     {
         return inventory.ContainsKey(type) ? inventory[type] : 0;
+    }
+
+    private void Awake()
+    {
+        // Singleton
+        if (Instance != null)
+        {
+            Debug.LogError("There is more than one Instance");
+        }
+
+        Instance = this;
     }
 }

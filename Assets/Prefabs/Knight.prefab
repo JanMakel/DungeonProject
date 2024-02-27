@@ -124,7 +124,7 @@ MonoBehaviour:
   unitLevel: 1
   unitDamage: 50
   unitMaxHp: 250
-  unitCurrentHp: 0
+  unitCurrentHp: 250
   unitDefense: 40
   unitVelocity: 50
   unitDodge: 8

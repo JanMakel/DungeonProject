@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     
 
-    public int hpLeft;
+    
 
     public string netxUuid;
 
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
    
     void Start()
     {
+        PlayerPrefs.DeleteAll();
        _rigidbody = GetComponent<Rigidbody2D>();
       playerCreated = true;
     }
@@ -59,4 +60,7 @@ public class PlayerController : MonoBehaviour
             _rigidbody.velocity = Vector2.zero;
         }
     }
+
+
+
 }

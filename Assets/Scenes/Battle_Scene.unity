@@ -1777,6 +1777,7 @@ MonoBehaviour:
   playerHUD: {fileID: 1724958605}
   enemyHUD: {fileID: 2050077376}
   battleText: {fileID: 1342059896}
+  playerUnit: {fileID: 0}
   battleReturn: {fileID: 0}
 --- !u!1 &1632657748
 GameObject:
@@ -2334,7 +2335,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2142383519}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1357080035}
+        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+        m_MethodName: onObjectButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2142383519
 MonoBehaviour:
   m_ObjectHideFlags: 0

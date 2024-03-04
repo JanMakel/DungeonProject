@@ -11,8 +11,7 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
-    
-
+    //Variable Region Start
     public BattleState state;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject[] enemy;
@@ -47,7 +46,7 @@ public class BattleSystem : MonoBehaviour
 
     public ReturnFromBattle battleReturn;
 
-  
+  //Variable Region End
 
     
     private void Start()
@@ -58,7 +57,12 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(SetupBattle());
     }
 
-    
+
+    /// <summary>
+    /// This Coroutine it's initialized in the start of the battle, and set ups everething we need to beggin.
+    /// Like who is the player, who is the enemy, the components they need, the stats they have from the script unit,
+    /// and then the function who is turn decides who gets to go first depending on the velocity of each one
+    /// </summary>
     private IEnumerator SetupBattle()
     {
         GameObject playerGameObject = Instantiate(player, playerStation);
@@ -108,7 +112,12 @@ public class BattleSystem : MonoBehaviour
 
    
 
-
+    /// <summary>
+    /// This coroutine performs the player attack, first we check if the enemy dodges, if not, if the player 
+    /// get to do a critical hit or it's just a normal hit, and then checks if the enemy is still alive, if it is
+    /// the battle continues if not the battle end in player win
+    /// </summary>
+    /// <returns></returns>
     IEnumerator PlayerAttack()
     {
         
@@ -187,7 +196,10 @@ public class BattleSystem : MonoBehaviour
       
         
     }
-
+    /// <summary>
+    /// This Coroutine puts player on defense increasing his defense for the netx turn attack
+    /// </summary>
+    /// <returns></returns>
     IEnumerator PlayerDefense()
     {
         inDefense = true;
@@ -199,7 +211,11 @@ public class BattleSystem : MonoBehaviour
         WhoIsTurn();
     }
 
-    
+    /// <summary>
+    /// This coroutine uses a potion to heal the player 100 HP, the player can't be healed more than is max Hp, 
+    /// and of course if he dosen't have any potion he can't heal either
+    /// </summary>
+    /// <returns></returns>
     IEnumerator PlayerHeal()
     {
         if (InventoryManager.Instance != null && InventoryManager.Instance.HasItem(InteractableObject.InteractableType.Potion))
@@ -233,7 +249,10 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(1f);
     }
     
-
+    /// <summary>
+    /// This function checks who turns is depending on the velocity of the player and enemy,
+    /// player or enemy may get two turns in a row if they have more than double of velocity than the other
+    /// </summary>
     private void WhoIsTurn()
     {
         playerSpeed = playerSpeed += playerUnit.unitVelocity;
@@ -255,6 +274,10 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function just settle the valors of the player to avoid errors with other turns, if you performed
+    /// a critical hit in other turn or defended, just settle the valors to normal
+    /// </summary>
     private void PlayerTurn()
     {
         if (inDefense)
@@ -269,6 +292,12 @@ public class BattleSystem : MonoBehaviour
         }
         battleText.text = "What will you do?...";
     }
+
+    /// <summary>
+    /// This coroutine it's the same as the playerAttack, the enemies only attack for now, so is the only thing will do.
+    /// At the end, checks if the player is dead, and if it is, Game Over Scene
+    /// </summary>
+    /// <returns></returns>
     IEnumerator EnemyTurn()
     {
         battleText.text = "Now is " + enemyUnit.unitName + " turn";
@@ -344,6 +373,9 @@ public class BattleSystem : MonoBehaviour
        
     }
 
+    /// <summary>
+    /// This Function manages the win or lose conditions and returns to the dungeon or send you to game over scene
+    /// </summary>
     private void EndBattle()
     {
         if(state == BattleState.WIN)
@@ -358,7 +390,9 @@ public class BattleSystem : MonoBehaviour
             battleReturn.Lose();
         }
     }
-
+    /// <summary>
+    /// Action Button to Attack
+    /// </summary>
     public void onAttackButton()
     {
         if(state != BattleState.PLAYERTURN)
@@ -368,7 +402,9 @@ public class BattleSystem : MonoBehaviour
 
         StartCoroutine(PlayerAttack());
     }
-
+    /// <summary>
+    /// Action Button to Defend
+    /// </summary>
     public void onDefenseButton()
     {
         if(state != BattleState.PLAYERTURN)
@@ -378,7 +414,9 @@ public class BattleSystem : MonoBehaviour
 
         StartCoroutine(PlayerDefense());
     }
-
+    /// <summary>
+    /// Action Button to heal, at the moment
+    /// </summary>
     public void onObjectButton()
     {
         if(state != BattleState.PLAYERTURN)

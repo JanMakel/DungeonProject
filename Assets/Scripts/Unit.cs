@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    //Stats of the units used in Battle System 
     public string unitName;
 
     public int unitLevel;
@@ -17,8 +18,13 @@ public class Unit : MonoBehaviour
     public int unitDodge;
     public int unitCrit;
 
-    
+    //Each prefab with this script has is unic Sats
 
+    /// <summary>
+    /// This Funtion takes damage maked by the unit pertinent and then checks if the unit is dead, all for the battle system check if you winned or lost
+    /// </summary>
+    /// <param name="damage"> Damage Taken</param>
+    /// <returns>Player or enemy dead or not</returns>
     public bool TakeDamage(int damage)
     {
 

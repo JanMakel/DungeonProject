@@ -13,10 +13,7 @@ public class CharacterLocator : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         camera = FindObjectOfType<CameraFollow>();
 
-        if (!player.netxUuid.Equals(uuid))
-        {
-            return;
-        }
+        
 
 
 

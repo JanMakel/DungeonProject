@@ -11,9 +11,12 @@ public class Win : MonoBehaviour
 
 
     private string winScene = "Win";
-    private string battle_Scene = "Battle_Scene";
+   
 
-
+    /// <summary>
+    /// This function Loads the win scene
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         

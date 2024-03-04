@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-
+    //Variable Regions
 
     public float speed = 10f;
 
@@ -14,12 +14,14 @@ public class PlayerController : MonoBehaviour
 
     public static bool playerCreated;
 
-
+    //Variable Regions
     
 
     
 
-    public string netxUuid;
+    /// <summary>
+    /// This function Make posible for the player to move with W A S D
+    /// </summary>
 
 
    

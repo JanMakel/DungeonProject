@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
+    //Variable Region Start
     public static MusicManager Instance;
 
     public AudioClip[] backgroundMusics;
@@ -12,6 +13,7 @@ public class MusicManager : MonoBehaviour
 
     private int currentBackgroundMusicIndex = 0;
 
+    //Variable Region End
     private void Awake()
     {
         if (Instance == null)
@@ -36,6 +38,11 @@ public class MusicManager : MonoBehaviour
         PlayBackgroundMusic(currentBackgroundMusicIndex);
     }
 
+
+    /// <summary>
+    /// This function Start the backgroun Music that you indicate by an index
+    /// </summary>
+    /// <param name="index"></param>
     public void PlayBackgroundMusic(int index)
     {
         if (index < 0 || index >= backgroundMusics.Length)
@@ -47,12 +54,19 @@ public class MusicManager : MonoBehaviour
         backgroundMusicSource.Play();
     }
 
+    /// <summary>
+    /// This Function plays the netx background Music in the array, if it was the last resets to the first one on the array
+    /// </summary>
     public void PlayNextBackgroundMusic()
     {
         currentBackgroundMusicIndex = (currentBackgroundMusicIndex + 1) % backgroundMusics.Length;
         PlayBackgroundMusic(currentBackgroundMusicIndex);
     }
 
+    /// <summary>
+    /// This Function plays the Sound Effect you indicate with an index
+    /// </summary>
+    /// <param name="index"></param>
     public void PlaySoundEffect(int index)
     {
         if (index < 0 || index >= soundEffects.Length)

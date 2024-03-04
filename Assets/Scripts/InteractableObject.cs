@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
+    //Variable Region
      public enum InteractableType { Key, Coin, Potion}
 
     [SerializeField] private InteractableType type;
@@ -23,6 +24,7 @@ public class InteractableObject : MonoBehaviour
     [SerializeField] private InteractableType chestContent;
     public int chestAmount;
 
+    //Variable Region end
 
     
     private void OnTriggerEnter2D(Collider2D collision)

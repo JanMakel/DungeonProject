@@ -10,7 +10,9 @@ public class Buttons : MonoBehaviour
     public Sprite normalSprite; 
     public Sprite pressedSprite; 
     private Image buttonImage;
-    
+    /// <summary>
+    /// This Script Manages all of the buttons in game, loading the pertinent Scenes and making a sort of animation
+    /// </summary>
     private void Start()
     {
         buttonImage = GetComponent<Image>(); 

@@ -10,6 +10,11 @@ public class InventoryUI : MonoBehaviour
     public InteractableObject.InteractableType[] itemTypes; // Array of InteractableTypes corresponding to items
     
     public static InventoryUI instance;
+
+    /// <summary>
+    /// This function Makes posible the inventory UI appear when you have at least one of the type item collected
+    /// and just set active the sprite with the animation in the pertienet loaction
+    /// </summary>
     public void InventoryAdding()
     {
         if (InventoryManager.Instance.HasItem(InteractableObject.InteractableType.Key))
@@ -28,7 +33,9 @@ public class InventoryUI : MonoBehaviour
             itemTexts[2].gameObject.SetActive(true);
         }
     }
-
+    /// <summary>
+    /// This function updates the inventory when you collect itmes, just reflexes the amount of the itmes you have
+    /// </summary>
     public void SetInventoryNums()
     {
         itemTexts[0].text = InventoryManager.Instance.GetItemCount(InteractableObject.InteractableType.Key).ToString();
@@ -36,6 +43,10 @@ public class InventoryUI : MonoBehaviour
         itemTexts[2].text = InventoryManager.Instance.GetItemCount(InteractableObject.InteractableType.Potion).ToString();
     }
 
+
+    /// <summary>
+    /// This function makes disapear the pertinent sprite when you don't have at least 1 item of the pertinent item, chekced in the Inventory Manager
+    /// </summary>
     public void RemoveInventory()
     {
         if (!InventoryManager.Instance.HasItem(InteractableObject.InteractableType.Key))

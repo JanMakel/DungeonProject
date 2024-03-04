@@ -9,12 +9,15 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
+        //Pause with P
         if (Input.GetKeyDown(KeyCode.P))
         {
             TogglePauseMenu();
         }
     }
-
+    /// <summary>
+    /// This function Pauses the game or resume it if the game was already Paused, Activates the pause panel or desactivates it
+    /// </summary>
     public void TogglePauseMenu()
     {
         isPaused = !isPaused;

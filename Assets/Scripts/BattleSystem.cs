@@ -42,6 +42,8 @@ public class BattleSystem : MonoBehaviour
 
 
     private Animator playerAnimator;
+    private Animator enemyAnimator;
+
 
     public ReturnFromBattle battleReturn;
 
@@ -68,6 +70,7 @@ public class BattleSystem : MonoBehaviour
 
         GameObject enemyGameObject = Instantiate(enemy[PlayerPrefs.GetInt("EnemySelected", -1)], enemyStation);
         enemyUnit = enemyGameObject.GetComponent<Unit>();
+        enemyAnimator = enemyGameObject.GetComponent<Animator>();
         if(!PlayerPrefs.HasKey(playerMaxHpkey))
         {
             playerUnit.unitCurrentHp = playerUnit.unitMaxHp;
@@ -148,12 +151,14 @@ public class BattleSystem : MonoBehaviour
                 battleText.text = "A CRITCAL HIT";
                 enemyParticleSystem.Play();
                 MusicManager.Instance.PlaySoundEffect(0);
+                enemyAnimator.SetTrigger("Hitted");
             }
             else
             {
                 battleText.text = "It hits!";
                 enemyParticleSystem.Play();
                 MusicManager.Instance.PlaySoundEffect(0);
+                enemyAnimator.SetTrigger("Hitted");
             }
 
             if (criticalHit)
@@ -168,6 +173,7 @@ public class BattleSystem : MonoBehaviour
             {
                 state = BattleState.WIN;
                 battleText.text = "You won!!";
+                enemyAnimator.SetBool("Dead", true);
                 MusicManager.Instance.backgroundMusicSource.Stop();
                 MusicManager.Instance.PlaySoundEffect(3);
                 yield return new WaitForSeconds(3f);
@@ -269,6 +275,9 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
+
+        enemyAnimator.SetTrigger("Attack");
+
         dodged = Random.Range(0, 100);
         if (dodged <= playerUnit.unitDodge)
         {
@@ -298,6 +307,7 @@ public class BattleSystem : MonoBehaviour
             {
                 battleText.text = "A CRITCAL HIT";
                 playerParticleSystem[0].Play();
+                playerAnimator.SetTrigger("Hitted");
                 MusicManager.Instance.PlaySoundEffect(0);
                 enemyUnit.unitDamage = enemyUnit.unitDamage / 2;
                 criticalHit = false;
@@ -306,6 +316,7 @@ public class BattleSystem : MonoBehaviour
             {
                 battleText.text = "That's going to hurt";
                 playerParticleSystem[0].Play();
+                playerAnimator.SetTrigger("Hitted");
                 MusicManager.Instance.PlaySoundEffect(0);
             }
 
@@ -317,6 +328,7 @@ public class BattleSystem : MonoBehaviour
             {
                 state = BattleState.LOST;
                 battleText.text = "You lost...";
+                playerAnimator.SetBool("Dead", true);
                 MusicManager.Instance.backgroundMusicSource.Stop();
                 MusicManager.Instance.PlaySoundEffect(2);
                 yield return new WaitForSeconds(4f);

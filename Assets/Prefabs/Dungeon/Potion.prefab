@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf2b9fc75a80524b9d41855fa1321cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  type: 2
   amount: 1
   chestContent: 0
   chestAmount: 0

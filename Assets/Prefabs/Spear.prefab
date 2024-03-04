@@ -121,10 +121,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Spear Skeleton
   unitLevel: 4
-  unitDamage: 80
+  unitDamage: 70
   unitMaxHp: 130
   unitCurrentHp: 0
-  unitDefense: 35
+  unitDefense: 25
   unitVelocity: 30
   unitDodge: 5
-  unitCrit: 20
+  unitCrit: 15

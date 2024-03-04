@@ -10,7 +10,7 @@ public class Buttons : MonoBehaviour
     public Sprite normalSprite; 
     public Sprite pressedSprite; 
     private Image buttonImage;
-
+    
     private void Start()
     {
         buttonImage = GetComponent<Image>(); 
@@ -38,5 +38,20 @@ public class Buttons : MonoBehaviour
     {
         SceneManager.LoadScene("Dungeon");
     }
+    public void OnInstructions()
+    {
+        SceneManager.LoadScene("Instructions");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void OnMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
 }
 

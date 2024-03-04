@@ -12,7 +12,7 @@ public class GoToBattle : MonoBehaviour
 
     public EnemyType enemyType;
 
-    //public string uuid;
+    
 
     
 

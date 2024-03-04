@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Archer
   unitLevel: 5
-  unitDamage: 70
+  unitDamage: 60
   unitMaxHp: 100
   unitCurrentHp: 0
   unitDefense: 5

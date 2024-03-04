@@ -121,10 +121,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Shadow
   unitLevel: 3
-  unitDamage: 90
+  unitDamage: 80
   unitMaxHp: 300
   unitCurrentHp: 0
   unitDefense: 5
   unitVelocity: 10
-  unitDodge: 30
-  unitCrit: 20
+  unitDodge: 20
+  unitCrit: 10

@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
        _rigidbody = GetComponent<Rigidbody2D>();
+       
       playerCreated = true;
     }
 

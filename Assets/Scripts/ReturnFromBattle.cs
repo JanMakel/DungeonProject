@@ -4,24 +4,27 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
+
 public class ReturnFromBattle : MonoBehaviour
 {
 
     
 
-    private string Battle_Scene = "Battle_Scene";
+    private string battle_Scene = "Battle_Scene";
 
-   
+    private string gameOver = "GameOver";
 
 
    
     public void Win()
     {
-        SceneManager.UnloadScene(Battle_Scene);
+        SceneManager.UnloadScene(battle_Scene);
+        MusicManager.Instance.PlayNextBackgroundMusic();
     }
 
     public void Lose()
     {
-        //SceneManager.LoadScene(GameOver);
+        SceneManager.UnloadScene(battle_Scene);
+        SceneManager.LoadScene(gameOver);
     }
 }

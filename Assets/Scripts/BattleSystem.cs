@@ -37,10 +37,11 @@ public class BattleSystem : MonoBehaviour
     private string playerCurrentHpKey = "PlayerHP";
     private string playerMaxHpkey = "PlayerMaxHP";
 
+   [SerializeField]private ParticleSystem[] playerParticleSystem;
+   [SerializeField]private ParticleSystem enemyParticleSystem;
 
 
-
-    private Animator animator;
+    private Animator playerAnimator;
 
     public ReturnFromBattle battleReturn;
 
@@ -60,7 +61,7 @@ public class BattleSystem : MonoBehaviour
     {
         GameObject playerGameObject = Instantiate(player, playerStation);
         playerUnit = playerGameObject.GetComponent<Unit>();
-        animator = playerGameObject.GetComponent<Animator>();
+        playerAnimator = playerGameObject.GetComponent<Animator>();
 
         battleReturn = playerGameObject.GetComponent<ReturnFromBattle>();
       
@@ -108,7 +109,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator PlayerAttack()
     {
         
-        animator.SetTrigger("Attack");
+        playerAnimator.SetTrigger("Attack");
         
         dodged = Random.Range(0, 100);
         if(dodged <= enemyUnit.unitDodge) 
@@ -145,10 +146,14 @@ public class BattleSystem : MonoBehaviour
             if(criticalHit)
             {
                 battleText.text = "A CRITCAL HIT";
+                enemyParticleSystem.Play();
+                MusicManager.Instance.PlaySoundEffect(0);
             }
             else
             {
                 battleText.text = "It hits!";
+                enemyParticleSystem.Play();
+                MusicManager.Instance.PlaySoundEffect(0);
             }
 
             if (criticalHit)
@@ -163,6 +168,9 @@ public class BattleSystem : MonoBehaviour
             {
                 state = BattleState.WIN;
                 battleText.text = "You won!!";
+                MusicManager.Instance.backgroundMusicSource.Stop();
+                MusicManager.Instance.PlaySoundEffect(3);
+                yield return new WaitForSeconds(3f);
                 EndBattle();
             }
             else
@@ -193,6 +201,8 @@ public class BattleSystem : MonoBehaviour
             if(playerUnit.unitCurrentHp < playerUnit.unitMaxHp)
             {
                 battleText.text = "Healing";
+                playerParticleSystem[1].Play();
+                MusicManager.Instance.PlaySoundEffect(1);
                 InventoryManager.Instance.RemoveItem(InteractableObject.InteractableType.Potion, 1);
                 int healAmount = Mathf.Min(100, playerUnit.unitMaxHp - playerUnit.unitCurrentHp);
                 playerUnit.unitCurrentHp += healAmount;
@@ -287,12 +297,16 @@ public class BattleSystem : MonoBehaviour
             if (criticalHit)
             {
                 battleText.text = "A CRITCAL HIT";
+                playerParticleSystem[0].Play();
+                MusicManager.Instance.PlaySoundEffect(0);
                 enemyUnit.unitDamage = enemyUnit.unitDamage / 2;
                 criticalHit = false;
             }
             else
             {
-                battleText.text = "That's going to hurt"; ;
+                battleText.text = "That's going to hurt";
+                playerParticleSystem[0].Play();
+                MusicManager.Instance.PlaySoundEffect(0);
             }
 
 
@@ -303,6 +317,9 @@ public class BattleSystem : MonoBehaviour
             {
                 state = BattleState.LOST;
                 battleText.text = "You lost...";
+                MusicManager.Instance.backgroundMusicSource.Stop();
+                MusicManager.Instance.PlaySoundEffect(2);
+                yield return new WaitForSeconds(4f);
                 EndBattle();
             }
             else
@@ -326,7 +343,7 @@ public class BattleSystem : MonoBehaviour
         }
         else if (state == BattleState.LOST)
         {
-            //Funcion de Game Over
+            battleReturn.Lose();
         }
     }
 

@@ -30,6 +30,7 @@ public class GoToBattle : MonoBehaviour
             isBattle = true;
 
             SceneManager.LoadScene(battleScene, LoadSceneMode.Additive);
+            MusicManager.Instance.PlayNextBackgroundMusic();
             
             Destroy(gameObject);
             ResetIsBattle();

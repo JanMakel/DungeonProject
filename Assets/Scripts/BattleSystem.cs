@@ -190,12 +190,23 @@ public class BattleSystem : MonoBehaviour
     {
         if (InventoryManager.Instance != null && InventoryManager.Instance.HasItem(InteractableObject.InteractableType.Potion))
         {
-            battleText.text = "Healing";
-            InventoryManager.Instance.RemoveItem(InteractableObject.InteractableType.Potion, 1);
-            playerUnit.unitCurrentHp += 100;
-            playerHUD.SetHp(playerUnit.unitCurrentHp);
-            yield return new WaitForSeconds(2f);
-            WhoIsTurn();
+            if(playerUnit.unitCurrentHp < playerUnit.unitMaxHp)
+            {
+                battleText.text = "Healing";
+                InventoryManager.Instance.RemoveItem(InteractableObject.InteractableType.Potion, 1);
+                int healAmount = Mathf.Min(100, playerUnit.unitMaxHp - playerUnit.unitCurrentHp);
+                playerUnit.unitCurrentHp += healAmount;
+                playerHUD.SetHp(playerUnit.unitCurrentHp);
+                yield return new WaitForSeconds(2f);
+                WhoIsTurn();
+            }
+            else
+            {
+                battleText.text = "You have max Hp";
+                yield return new WaitForSeconds(2f);
+                battleText.text = "What will you do?";
+            }
+           
         }
         else
         {

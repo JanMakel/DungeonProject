@@ -11,12 +11,14 @@ public class InventoryManager : MonoBehaviour
         if (inventory.ContainsKey(type))
         {
             inventory[type] += amount;
-            
+            InventoryUI.instance.SetInventoryNums();
         }
         else
         {
             inventory.Add(type, amount);
             Debug.Log($"{type}, {amount}");
+            InventoryUI.instance.InventoryAdding();
+            InventoryUI.instance.SetInventoryNums();
         }
     }
 
@@ -28,7 +30,10 @@ public class InventoryManager : MonoBehaviour
             if (inventory[type] <= 0)
             {
                 inventory.Remove(type);
+                InventoryUI.instance.RemoveInventory();
+                InventoryUI.instance.SetInventoryNums();
             }
+            InventoryUI.instance.SetInventoryNums();
         }
     }
 

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOST }
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, WIN, LOST, WAIT }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -120,7 +120,7 @@ public class BattleSystem : MonoBehaviour
     /// <returns></returns>
     IEnumerator PlayerAttack()
     {
-        
+        state = BattleState.WAIT;
         playerAnimator.SetTrigger("Attack");
         
         dodged = Random.Range(0, 100);
@@ -130,9 +130,6 @@ public class BattleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            battleText.text = "Now is " + enemyUnit.unitName + " turn";
-
-            yield return new WaitForSeconds(2f);
 
             WhoIsTurn();
 
@@ -202,6 +199,7 @@ public class BattleSystem : MonoBehaviour
     /// <returns></returns>
     IEnumerator PlayerDefense()
     {
+        state = BattleState.WAIT;
         inDefense = true;
         playerUnit.unitDefense = playerUnit.unitDefense * 2;
         battleText.text = "Defending!";
@@ -222,6 +220,7 @@ public class BattleSystem : MonoBehaviour
         {
             if(playerUnit.unitCurrentHp < playerUnit.unitMaxHp)
             {
+                state = BattleState.WAIT;
                 battleText.text = "Healing";
                 playerParticleSystem[1].Play();
                 MusicManager.Instance.PlaySoundEffect(1);

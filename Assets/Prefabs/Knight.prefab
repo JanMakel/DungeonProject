@@ -122,12 +122,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Knight
   unitLevel: 1
-  unitDamage: 50
+  unitDamage: 60
   unitMaxHp: 250
   unitCurrentHp: 250
-  unitDefense: 40
-  unitVelocity: 50
-  unitDodge: 8
+  unitDefense: 25
+  unitVelocity: 30
+  unitDodge: 15
   unitCrit: 10
 --- !u!114 &-8513101049148300864
 MonoBehaviour:

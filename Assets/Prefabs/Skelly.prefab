@@ -119,12 +119,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350cb10ecde67504fa7bcf3c969360f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Shiel Skeleton
+  unitName: Shield Skeleton
   unitLevel: 1
   unitDamage: 50
   unitMaxHp: 300
   unitCurrentHp: 0
   unitDefense: 25
-  unitVelocity: 25
+  unitVelocity: 15
   unitDodge: 1
   unitCrit: 8

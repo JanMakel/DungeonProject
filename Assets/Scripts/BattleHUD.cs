@@ -9,7 +9,7 @@ public class BattleHUD : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI healthPoints;
-
+    public int maxHp;
     /// <summary>
     /// This Function sets the HUD for the unit you send it to him, I use this on battle system when I set up de battle
     /// </summary>
@@ -19,7 +19,8 @@ public class BattleHUD : MonoBehaviour
         
         nameText.text = unit.unitName;
         levelText.text = "Lvl:" + unit.unitLevel;
-        healthPoints.text = "HP:" + unit.unitCurrentHp;
+        healthPoints.text = "HP: " + unit.unitCurrentHp;
+        unit.unitMaxHp = maxHp;
     }
 
     /// <summary>

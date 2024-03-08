@@ -398,7 +398,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Selec an Action with Left Click during combat to Attack, Defend or use
+  m_text: Select an Action with Left Click during combat to Attack, Defend or use
     a potion. You can ONLY Heal during Combat.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9bf96d8ff8ba944418304d50a4a56953, type: 2}

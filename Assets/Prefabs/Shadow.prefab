@@ -125,6 +125,6 @@ MonoBehaviour:
   unitMaxHp: 300
   unitCurrentHp: 0
   unitDefense: 5
-  unitVelocity: 10
+  unitVelocity: 15
   unitDodge: 20
   unitCrit: 10
